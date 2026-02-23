@@ -58,7 +58,9 @@ app.get('/api/search', (_req, res) => {
         (item) =>
             item.name.toLowerCase().includes(query) ||
             (item.country && item.country.toLowerCase().includes(query)) ||
-            (item.description && item.description.toLowerCase().includes(query))
+            (item.description && item.description.toLowerCase().includes(query)) ||
+            (item.class && item.class.toLowerCase().includes(query)) ||
+            (item.calibre && item.calibre.toLowerCase().includes(query))
     );
 
     res.json(results);

@@ -1,13 +1,15 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform, Text, StyleSheet } from 'react-native';
-import { Colors, FontSize, Spacing } from '@/theme';
+import { Platform, Text, StyleSheet, View } from 'react-native';
+import { Colors, Typography, Spacing } from '@/theme';
 
 function TabIcon({ label, focused }: { label: string; focused: boolean }) {
   return (
-    <Text style={[styles.icon, focused && styles.iconFocused]}>
-      {label}
-    </Text>
+    <View style={[styles.iconContainer, focused && styles.iconContainerFocused]}>
+      <Text style={[styles.icon, focused && styles.iconFocused]}>
+        {label}
+      </Text>
+    </View>
   );
 }
 
@@ -15,20 +17,19 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors.tabActive,
-        tabBarInactiveTintColor: Colors.tabInactive,
+        tabBarActiveTintColor: Colors.accent,
+        tabBarInactiveTintColor: Colors.textMuted,
         tabBarStyle: {
-          backgroundColor: Colors.tabBg,
-          borderTopColor: Colors.tabBorder,
+          backgroundColor: Colors.surface,
+          borderTopColor: Colors.border,
           borderTopWidth: 1,
           height: Platform.OS === 'android' ? 64 : 84,
           paddingBottom: Platform.OS === 'android' ? Spacing.sm : Spacing.xxl,
           paddingTop: Spacing.sm,
         },
         tabBarLabelStyle: {
-          fontSize: FontSize.xs,
+          ...Typography.caption,
           fontWeight: '700',
-          letterSpacing: 0.5,
         },
         headerShown: false,
       }}
@@ -56,9 +57,16 @@ export default function TabLayout() {
 }
 
 const styles = StyleSheet.create({
+  iconContainer: {
+    padding: 6,
+    borderRadius: 8,
+  },
+  iconContainerFocused: {
+    backgroundColor: Colors.accentMuted,
+  },
   icon: {
     fontSize: 22,
-    opacity: 0.5,
+    opacity: 0.6,
   },
   iconFocused: {
     opacity: 1,

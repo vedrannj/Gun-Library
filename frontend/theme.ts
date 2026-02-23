@@ -1,67 +1,59 @@
 /**
  * Design system tokens for the Gun Library app.
- * All colors, spacing, radii, and typography are defined here.
+ * Premium Midnight & Indigo iOS-style Palette.
  */
 
 export const Colors = {
-    /** Main background */
-    bg: '#0D0D0D',
-    /** Card / input surface */
-    surface: '#161616',
-    /** Elevated surface (hover / active) */
-    surfaceLight: '#1F1F1F',
-    /** Subtle border */
-    border: '#2A2A2A',
-    /** Accent border on focus / highlight */
-    accentBorder: '#334155',
+    /** True black background for OLED screens */
+    bg: '#000000',
+    /** Dark slate/midnight for elevated surfaces */
+    surface: '#1C1C1E',
+    /** Slightly lighter for deeper elevation */
+    surfaceLight: '#2C2C2E',
+    /** Primary text (pure white for stark contrast) */
+    text: '#FFFFFF',
+    /** Secondary text (subtle gray) */
+    textMuted: '#8E8E93',
+    /** Premium Indigo accent color */
+    accent: '#5E5CE6',
+    /** Subtle accent for backgrounds/chips */
+    accentMuted: 'rgba(94, 92, 230, 0.15)',
+    /** Pure Apple-like border color */
+    border: '#2C2C2E',
 
-    /** Primary accent — cool blue */
-    accent: '#3B82F6',
-    /** Secondary accent — teal */
-    accentAlt: '#06B6D4',
-
-    /** Text hierarchy */
-    text: '#F1F5F9',
-    textSecondary: '#94A3B8',
-    textMuted: '#64748B',
-    textDim: '#475569',
-
-    /** Status */
-    success: '#22C55E',
-    warning: '#F59E0B',
-    error: '#EF4444',
-
-    /** Tab bar */
-    tabActive: '#3B82F6',
-    tabInactive: '#64748B',
-    tabBg: '#111111',
-    tabBorder: '#1E1E1E',
-} as const;
+    // Specific category/class colors to make UI pop
+    types: {
+        assaultRifle: '#FF3B30', // Red
+        handgun: '#34C759',      // Green
+        sniper: '#FF9F0A',       // Orange
+        submachine: '#32ADE6',   // Cyan
+        battleRifle: '#AF52DE',  // Purple
+        default: '#8E8E93',
+    }
+};
 
 export const Spacing = {
     xs: 4,
     sm: 8,
-    md: 12,
-    lg: 16,
-    xl: 20,
-    xxl: 28,
-    xxxl: 40,
-} as const;
+    md: 16,
+    lg: 24,
+    xl: 32,
+    xxl: 48,
+};
 
-export const Radius = {
+export const Radii = {
     sm: 8,
     md: 12,
     lg: 16,
-    xl: 20,
-    full: 999,
-} as const;
+    xl: 24,
+    pill: 9999,
+};
 
-export const FontSize = {
-    xs: 11,
-    sm: 13,
-    md: 15,
-    lg: 18,
-    xl: 22,
-    xxl: 30,
-    hero: 38,
-} as const;
+export const Typography = {
+    h1: { fontSize: 34, fontWeight: '800' as const, letterSpacing: 0.5 },
+    h2: { fontSize: 28, fontWeight: '700' as const, letterSpacing: 0.3 },
+    h3: { fontSize: 20, fontWeight: '600' as const },
+    body: { fontSize: 16, fontWeight: '400' as const, lineHeight: 24 },
+    caption: { fontSize: 13, fontWeight: '500' as const },
+    pill: { fontSize: 12, fontWeight: '700' as const, letterSpacing: 0.5 },
+};

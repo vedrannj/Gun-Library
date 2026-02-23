@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
-import { Colors, Spacing, Radius } from '@/theme';
+import { Colors, Spacing, Radii } from '@/theme';
 
 /**
  * A pulsing skeleton placeholder that mimics a WeaponCard shape
@@ -40,6 +40,7 @@ export default function CardSkeleton() {
                 <View style={styles.metaRow}>
                     <View style={styles.metaChip} />
                     <View style={styles.metaChip} />
+                    <View style={styles.metaChip} />
                 </View>
             </View>
         </Animated.View>
@@ -49,7 +50,7 @@ export default function CardSkeleton() {
 const styles = StyleSheet.create({
     card: {
         backgroundColor: Colors.surface,
-        borderRadius: Radius.lg,
+        borderRadius: Radii.lg,
         marginBottom: Spacing.xl,
         overflow: 'hidden',
         borderWidth: 1,
@@ -70,21 +71,21 @@ const styles = StyleSheet.create({
         height: 20,
         width: '60%' as unknown as number,
         backgroundColor: Colors.surfaceLight,
-        borderRadius: Radius.sm,
+        borderRadius: Radii.sm,
         marginBottom: Spacing.md,
     },
     lineBar: {
         height: 14,
         width: '100%' as unknown as number,
         backgroundColor: Colors.surfaceLight,
-        borderRadius: Radius.sm,
+        borderRadius: Radii.sm,
         marginBottom: Spacing.sm,
     },
     lineBarShort: {
         height: 14,
         width: '75%' as unknown as number,
         backgroundColor: Colors.surfaceLight,
-        borderRadius: Radius.sm,
+        borderRadius: Radii.sm,
     },
     divider: {
         height: 1,
@@ -99,6 +100,6 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 40,
         backgroundColor: Colors.surfaceLight,
-        borderRadius: Radius.sm,
+        borderRadius: Radii.sm,
     },
 });

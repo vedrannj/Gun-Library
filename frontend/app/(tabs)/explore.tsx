@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, ScrollView, Platform, StatusBar } from 'react-native';
-import { Colors, Spacing, Radius, FontSize } from '@/theme';
+import { Colors, Spacing, Radii, Typography } from '@/theme';
 
 interface InfoCardProps {
   title: string;
@@ -41,19 +41,19 @@ export default function AboutScreen() {
       <InfoCard
         title="Disclaimer"
         body="This application does not facilitate the purchase, sale, or transfer of any firearms or ammunition. It is intended strictly as an educational and reference tool."
-        accent={Colors.warning}
+        accent={Colors.types.assaultRifle} // Red warning 
       />
 
       <InfoCard
         title="Data Sources"
         body="Equipment data is aggregated from open military databases and publicly available encyclopedic sources. Data is refreshed automatically on a daily schedule."
-        accent={Colors.accentAlt}
+        accent={Colors.types.submachine} // Cyan
       />
 
       <InfoCard
         title="Privacy"
         body="This application does not collect, store, or transmit any personal user data. All search queries are processed on the local backend server."
-        accent={Colors.success}
+        accent={Colors.types.handgun} // Green privacy
       />
 
       <View style={styles.footer}>
@@ -74,26 +74,23 @@ const styles = StyleSheet.create({
       Platform.OS === 'android'
         ? (StatusBar.currentHeight ?? 0) + Spacing.md
         : 60,
-    paddingBottom: Spacing.xxxl,
+    paddingBottom: Spacing.xxl,
   },
   header: {
     marginBottom: Spacing.xxl,
   },
   title: {
-    fontSize: FontSize.hero,
-    fontWeight: '900',
+    ...Typography.h1,
     color: Colors.text,
-    letterSpacing: -0.5,
   },
   subtitle: {
-    fontSize: FontSize.md,
+    ...Typography.body,
     color: Colors.textMuted,
     marginTop: Spacing.xs,
-    letterSpacing: 0.5,
   },
   card: {
     backgroundColor: Colors.surface,
-    borderRadius: Radius.lg,
+    borderRadius: Radii.lg,
     marginBottom: Spacing.lg,
     overflow: 'hidden',
     borderWidth: 1,
@@ -109,22 +106,20 @@ const styles = StyleSheet.create({
     padding: Spacing.lg,
   },
   cardTitle: {
-    fontSize: FontSize.lg,
-    fontWeight: '800',
+    ...Typography.h3,
     color: Colors.text,
     marginBottom: Spacing.sm,
   },
   cardText: {
-    fontSize: FontSize.md,
-    color: Colors.textSecondary,
-    lineHeight: 22,
+    ...Typography.body,
+    color: Colors.textMuted,
   },
   footer: {
     alignItems: 'center',
     marginTop: Spacing.xxl,
   },
   footerText: {
-    fontSize: FontSize.sm,
-    color: Colors.textDim,
+    ...Typography.caption,
+    color: Colors.textMuted,
   },
 });

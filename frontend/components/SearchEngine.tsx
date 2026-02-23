@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { View, TextInput, StyleSheet, Animated } from 'react-native';
-import { Colors, Spacing, Radius, FontSize } from '@/theme';
-import type { Weapon } from '@/types';
-import { Platform } from 'react-native';
+import { View, TextInput, StyleSheet, Animated, Platform } from 'react-native';
+import { Colors, Spacing, Radii, Typography } from '../theme';
+import type { Weapon } from '../types';
 
 const API_BASE =
     Platform.OS === 'android' ? 'http://10.0.2.2:3000' : 'http://localhost:3000';
@@ -10,9 +9,10 @@ const API_BASE =
 interface SearchEngineProps {
     onResults: (data: Weapon[]) => void;
     onLoading: (loading: boolean) => void;
+    fetchOnMount?: boolean; // New prop for empty state
 }
 
-export default function SearchEngine({ onResults, onLoading }: SearchEngineProps) {
+export default function SearchEngine({ onResults, onLoading, fetchOnMount = false }: SearchEngineProps) {
     const [query, setQuery] = useState('');
     const [focused, setFocused] = useState(false);
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -20,6 +20,10 @@ export default function SearchEngine({ onResults, onLoading }: SearchEngineProps
 
     const fetchResults = useCallback(
         async (searchQuery: string) => {
+            if (!searchQuery && !fetchOnMount) {
+                onResults([]);
+                return;
+            }
             onLoading(true);
             try {
                 const res = await fetch(
@@ -35,18 +39,20 @@ export default function SearchEngine({ onResults, onLoading }: SearchEngineProps
                 onLoading(false);
             }
         },
-        [onResults, onLoading]
+        [onResults, onLoading, fetchOnMount]
     );
 
     useEffect(() => {
-        fetchResults('');
-    }, [fetchResults]);
+        if (fetchOnMount) {
+            fetchResults('');
+        }
+    }, [fetchResults, fetchOnMount]);
 
     useEffect(() => {
         Animated.timing(glowAnim, {
             toValue: focused ? 1 : 0,
             duration: 200,
-            useNativeDriver: false,
+            useNativeDriver: false, // borderColor doesn't support native driver
         }).start();
     }, [focused, glowAnim]);
 
@@ -66,8 +72,8 @@ export default function SearchEngine({ onResults, onLoading }: SearchEngineProps
             <Animated.View style={[styles.inputContainer, { borderColor }]}>
                 <TextInput
                     style={styles.input}
-                    placeholder="Search firearms..."
-                    placeholderTextColor={Colors.textDim}
+                    placeholder="Search firearms or calibers..."
+                    placeholderTextColor={Colors.textMuted}
                     value={query}
                     onChangeText={handleSearch}
                     onFocus={() => setFocused(true)}
@@ -87,13 +93,13 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         backgroundColor: Colors.surface,
-        borderRadius: Radius.md,
+        borderRadius: Radii.lg,
         borderWidth: 1.5,
         overflow: 'hidden',
     },
     input: {
         color: Colors.text,
-        fontSize: FontSize.md,
+        ...Typography.body,
         paddingHorizontal: Spacing.lg,
         paddingVertical: Spacing.lg,
     },
