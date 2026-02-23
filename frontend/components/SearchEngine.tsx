@@ -4,7 +4,7 @@ import { Colors, Spacing, Radii, Typography } from '../theme';
 import type { Weapon } from '../types';
 
 const API_BASE =
-    Platform.OS === 'android' ? 'http://10.0.2.2:3000' : 'http://localhost:3000';
+    Platform.OS === 'web' ? '' : Platform.OS === 'android' ? 'http://10.0.2.2:3000' : 'http://localhost:3000';
 
 interface SearchEngineProps {
     onResults: (data: Weapon[]) => void;

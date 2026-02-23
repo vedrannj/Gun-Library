@@ -13,8 +13,12 @@ const PORT = process.env.PORT || 3000;
 const DB_PATH = path.join(__dirname, 'database.json');
 
 // Initialize database file if it doesn't exist
-if (!fs.existsSync(DB_PATH)) {
-    fs.writeFileSync(DB_PATH, JSON.stringify([], null, 2));
+try {
+    if (!fs.existsSync(DB_PATH)) {
+        fs.writeFileSync(DB_PATH, JSON.stringify([], null, 2));
+    }
+} catch (e) {
+    console.log('[Server] Read-only filesystem detected, skipping DB init.');
 }
 
 /**
@@ -85,11 +89,19 @@ app.get('/api/health', (_req, res) => {
 cron.schedule('0 0 * * *', runScraper);
 
 // Populate database on first launch if empty
-const initialDB = readDB();
-if (initialDB.length === 0) {
-    runScraper();
+try {
+    const initialDB = readDB();
+    if (initialDB.length === 0) {
+        runScraper();
+    }
+} catch (e) {
+    console.log('[Server] Initial DB scraping skipped due to environment limitations.');
 }
 
-app.listen(PORT, () => {
-    console.log(`[Server] Running on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`[Server] Running on http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
